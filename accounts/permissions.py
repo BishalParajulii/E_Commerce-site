@@ -7,3 +7,10 @@ class IsAdmin(BasePermission):
 class IsSeller(BasePermission):
     def has_permission(self , request , view):
         return request.user.is_authenticated and request.user.role == 'seller'
+    
+class IsAdminOrSeller(BasePermission):
+    def has_permission(self, request, view):
+        return (
+            request.user.is_authenticated and 
+            request.user.role in ['admin', 'seller']
+        )
