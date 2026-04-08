@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "accounts",
     "products",
     "rest_framework",
+    'django_filters',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -122,6 +123,9 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
     ],
+     "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+    ]
 }
 
 
