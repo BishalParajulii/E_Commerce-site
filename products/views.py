@@ -44,26 +44,26 @@ class ListProductView(generics.ListAPIView):
 
 class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
-    serializer_classes = ProductSerializer
+    serializer_class = ProductSerializer
     lookup_field = 'id'
     permission_classes = [IsAuthenticated]
     
 
 class ProductUpdateView(generics.UpdateAPIView):
     queryset = Product.objects.all()
-    serializer_classes = ProductSerializer
+    serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated , IsAdminOrSeller]
     
 
 class ProductDeleteView(generics.DestroyAPIView):
     queryset = Product.objects.all()
-    serializer_classes = ProductSerializer
+    serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated , IsAdminOrSeller]
     
     
     
 class MyProductView(generics.ListAPIView):
-    serializer_classes = ProductSerializer
+    serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated , IsAdminOrSeller]
     
     def get_queryset(self):
