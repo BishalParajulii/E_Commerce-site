@@ -14,7 +14,7 @@ class OrdersDashboardView(generics.GenericAPIView):
 
 
 class OrderCreateView(generics.CreateAPIView):
-    queryset = Order.objects.all()
+    queryset = Order.objects.prefetch_related("items__product", "items__seller")
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
 
@@ -27,7 +27,9 @@ class ViewOrdersView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user)
+        return Order.objects.filter(user=self.request.user).prefetch_related(
+            "items__product", "items__seller"
+        )
 
 
 class ViewSellerOrdersView(generics.ListAPIView):
@@ -36,11 +38,15 @@ class ViewSellerOrdersView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Order.objects.filter(items__seller=user).distinct()
+        return (
+            Order.objects.filter(items__seller=user)
+            .prefetch_related("items__product", "items__seller")
+            .distinct()
+        )
 
 
 class UpdateOrderView(generics.UpdateAPIView):
-    queryset = Order.objects.all()
+    queryset = Order.objects.prefetch_related("items__product", "items__seller")
     serializer_class = OrderStatusUpdateSerializer
     permission_classes = [IsAuthenticated, IsSellerOfOrder]
 

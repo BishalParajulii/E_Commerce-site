@@ -8,11 +8,16 @@ const resetFiltersBtn = document.getElementById("resetFiltersBtn");
 const productsGrid = document.getElementById("productsGrid");
 const resultsMeta = document.getElementById("resultsMeta");
 const statusMessage = document.getElementById("statusMessage");
+const accountName = document.getElementById("accountName");
 
 const storageKey = "orders-ui-token";
+const userKey = "orders-ui-user";
 let allProducts = [];
 
 function setMessage(message, kind = "success") {
+    if (!statusMessage) {
+        return;
+    }
     statusMessage.textContent = message;
     statusMessage.className = `status-message ${kind}`;
 }
@@ -21,17 +26,42 @@ function getToken() {
     return (localStorage.getItem(storageKey) || "").trim();
 }
 
+function getUser() {
+    try {
+        return JSON.parse(localStorage.getItem(userKey) || "null");
+    } catch (error) {
+        return null;
+    }
+}
+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+}
+
+function getProductImage(product) {
+    return (
+        product.image ||
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 220'%3E%3Crect width='300' height='220' fill='%23f3f3f3'/%3E%3Ctext x='50%25' y='50%25' fill='%23666666' font-size='26' font-family='Arial' text-anchor='middle' dominant-baseline='middle'%3EProduct%3C/text%3E%3C/svg%3E"
+    );
+}
+
 async function apiFetch(url) {
     const token = getToken();
     const response = await fetch(url, {
-        headers: {
-            Authorization: token ? `Bearer ${token}` : "",
-        },
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
 
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) {
-        throw new Error(JSON.stringify(payload || { detail: "Request failed." }));
+        const detail = Object.entries(payload)
+            .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(", ") : value}`)
+            .join(" | ");
+        throw new Error(detail || "Request failed.");
     }
 
     return payload;
@@ -44,14 +74,10 @@ function currency(amount) {
     }).format(Number(amount || 0));
 }
 
-function productInitial(name) {
-    return (name || "?").trim().charAt(0).toUpperCase();
-}
-
 function filteredProducts() {
-    const query = (productSearch.value || "").trim().toLowerCase();
-    const seller = (ownerFilter.value || "").trim().toLowerCase();
-    const sort = sortSelect.value;
+    const query = (productSearch?.value || "").trim().toLowerCase();
+    const seller = (ownerFilter?.value || "").trim().toLowerCase();
+    const sort = sortSelect?.value || "";
 
     let products = [...allProducts].filter((product) => {
         const haystack = [
@@ -80,7 +106,13 @@ function filteredProducts() {
 }
 
 function renderProducts(products) {
-    resultsMeta.textContent = `${products.length} product${products.length === 1 ? "" : "s"} loaded`;
+    if (!productsGrid) {
+        return;
+    }
+
+    if (resultsMeta) {
+        resultsMeta.textContent = `${products.length} result${products.length === 1 ? "" : "s"}`;
+    }
 
     if (!products.length) {
         productsGrid.innerHTML = '<p class="empty-state">No products match the current filters.</p>';
@@ -91,15 +123,19 @@ function renderProducts(products) {
         .map(
             (product) => `
                 <article class="product-card">
-                    <div class="product-visual">${productInitial(product.name)}</div>
+                    <div class="product-image-wrap">
+                        <img src="${escapeHtml(getProductImage(product))}" alt="${escapeHtml(product.name)}">
+                    </div>
                     <div class="product-body">
-                        <div>
-                            <h3>${product.name}</h3>
-                            <p class="product-meta">${product.category || "Uncategorized"} | Seller: ${product.owner}</p>
+                        <a href="#" class="product-title">${escapeHtml(product.name)}</a>
+                        <div class="product-rating">★★★★☆ <span>${escapeHtml(product.category || "General")}</span></div>
+                        <div class="product-price">${currency(product.price)}</div>
+                        <p class="product-meta">Sold by ${escapeHtml(product.owner || "Marketplace seller")}</p>
+                        <p class="product-description">${escapeHtml(product.description || "No description available.")}</p>
+                        <div class="stock-row">
+                            <span>${Number(product.stock || 0) > 0 ? "In Stock" : "Out of Stock"}</span>
+                            <span>${product.stock ?? 0} available</span>
                         </div>
-                        <div class="price-line">${currency(product.price)}</div>
-                        <div class="pill">Stock: ${product.stock ?? "-"}</div>
-                        <p class="product-meta">${product.description || "No description available."}</p>
                     </div>
                 </article>
             `
@@ -111,6 +147,13 @@ function applyFilters() {
     renderProducts(filteredProducts());
 }
 
+function syncUser() {
+    const user = getUser();
+    if (accountName) {
+        accountName.textContent = user?.username || "Guest";
+    }
+}
+
 async function loadProducts() {
     try {
         setMessage("Loading products...");
@@ -119,21 +162,33 @@ async function loadProducts() {
         setMessage("Products loaded.");
     } catch (error) {
         setMessage(error.message, "error");
-        productsGrid.innerHTML = '<p class="empty-state">Login is required before products can be shown.</p>';
+        if (productsGrid) {
+            productsGrid.innerHTML = '<p class="empty-state">Login is required before products can be shown.</p>';
+        }
     }
 }
 
-loadProductsBtn.addEventListener("click", loadProducts);
-searchBtn.addEventListener("click", applyFilters);
-applyFiltersBtn.addEventListener("click", applyFilters);
-productSearch.addEventListener("input", applyFilters);
+loadProductsBtn?.addEventListener("click", loadProducts);
+searchBtn?.addEventListener("click", applyFilters);
+applyFiltersBtn?.addEventListener("click", applyFilters);
+productSearch?.addEventListener("input", applyFilters);
+ownerFilter?.addEventListener("input", applyFilters);
+sortSelect?.addEventListener("change", applyFilters);
 
-resetFiltersBtn.addEventListener("click", () => {
-    productSearch.value = "";
-    ownerFilter.value = "";
-    sortSelect.value = "";
+resetFiltersBtn?.addEventListener("click", () => {
+    if (productSearch) {
+        productSearch.value = "";
+    }
+    if (ownerFilter) {
+        ownerFilter.value = "";
+    }
+    if (sortSelect) {
+        sortSelect.value = "";
+    }
     applyFilters();
 });
+
+syncUser();
 
 if (getToken()) {
     loadProducts();

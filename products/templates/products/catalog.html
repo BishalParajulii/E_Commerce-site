@@ -4,94 +4,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products Catalog</title>
+    <title>Products</title>
     <link rel="stylesheet" href="{% static 'products/products-ui.css' %}">
 </head>
 <body>
-    <div class="top-strip">
-        <div class="shell top-strip-inner">
-            <div class="top-links">
-                <a href="/">Home</a>
-                <a href="/login/">Login</a>
-                <a href="/signup/">Signup</a>
-                <a href="/orders/ui/">Orders</a>
+    <div class="utility-bar">
+        <div class="utility-inner">
+            <div class="utility-links">
+                <a href="/login/">SAVE MORE ON APP</a>
+                <a href="/signup/">BECOME A SELLER</a>
+                <a href="/orders/ui/">MY ORDERS</a>
+                <a href="/logout/">LOGOUT</a>
             </div>
-            <p class="top-note">Logged-in product catalog</p>
         </div>
     </div>
 
-    <header class="market-header">
-        <div class="shell header-inner">
-            <a href="/products/ui/" class="brand-block">
-                <span class="brand-mark">P</span>
-                <span class="brand-copy">
-                    <strong>Product Hub</strong>
-                    <small>Marketplace listing</small>
-                </span>
-            </a>
-
-            <div class="search-block">
+    <header class="site-header">
+        <div class="header-main">
+            <a href="/" class="brand">shop<span>lane</span></a>
+            <div class="search-shell">
                 <label class="sr-only" for="productSearch">Search products</label>
-                <input id="productSearch" type="search" placeholder="Search products by name, description, seller">
+                <input id="productSearch" type="search" placeholder="Search in Shoplane">
                 <button id="searchBtn" type="button">Search</button>
             </div>
-
-            <div class="header-actions">
-                <a href="/login/" class="header-link">Account</a>
-                <a href="/orders/ui/" class="header-link">Orders</a>
+            <nav class="header-links">
+                <a href="/products/ui/">Products</a>
+                <a href="/orders/ui/">Orders</a>
+                <a href="/login/">Login</a>
+            </nav>
+            <div class="account-block">
+                <span class="header-label">Welcome</span>
+                <strong id="accountName">Guest</strong>
             </div>
         </div>
     </header>
 
-    <main class="page-shell shell">
-        <section class="hero-panel">
-            <div class="hero-copy-wide">
-                <p class="section-kicker">Catalog Access</p>
-                <h1>Browse active products after login.</h1>
-                <p class="hero-text">
-                    This page uses the token saved from your login screen. If there is no token, the product request
-                    will fail and you can log in again from the login page.
-                </p>
-                <div class="inline-actions">
-                    <button id="loadProductsBtn" type="button" class="ghost-btn">Load Products</button>
-                    <a href="/login/" class="soft-link">Login</a>
-                    <a href="/orders/ui/" class="soft-link">Orders</a>
+    <main class="page-shell">
+        <section class="hero-strip">
+            <div class="hero-copy">
+                <p class="hero-kicker">Shoplane mall</p>
+                <h1>Products, deals, and categories in a Daraz-style storefront.</h1>
+                <p>Browse marketplace inventory with a brighter promo layout, cleaner product rail, and simpler controls.</p>
+                <div class="hero-actions">
+                    <button id="loadProductsBtn" type="button">Load Products</button>
+                    <a href="/orders/ui/" class="text-link">Go to orders</a>
                 </div>
                 <div id="statusMessage" class="status-message" aria-live="polite"></div>
             </div>
+            <div class="hero-side">
+                <div class="promo-card">
+                    <span class="promo-label">Flash Sale Feel</span>
+                    <strong>Fast product scanning</strong>
+                    <p>Filter, sort, and move to order placement without extra clutter.</p>
+                </div>
+            </div>
         </section>
 
-        <section class="content-grid">
-            <aside class="sidebar-card">
-                <div class="section-header">
-                    <div>
-                        <p class="section-kicker">Quick Filters</p>
-                        <h2>Catalog Tools</h2>
-                    </div>
+        <section class="catalog-layout">
+            <aside class="toolbar">
+                <div class="toolbar-header">
+                    <p class="section-label">Categories</p>
+                    <h2>Filters</h2>
                 </div>
-                <label for="sortSelect">Sort</label>
-                <select id="sortSelect">
-                    <option value="">Default</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="latest">Newest</option>
-                </select>
-
-                <label for="ownerFilter">Seller contains</label>
-                <input id="ownerFilter" type="text" placeholder="seller name">
-
-                <div class="inline-actions">
+                <div class="toolbar-group">
+                    <label for="sortSelect">Sort by</label>
+                    <select id="sortSelect">
+                        <option value="">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="latest">Newest arrivals</option>
+                    </select>
+                </div>
+                <div class="toolbar-group">
+                    <label for="ownerFilter">Seller</label>
+                    <input id="ownerFilter" type="text" placeholder="Filter by seller">
+                </div>
+                <div class="toolbar-actions">
                     <button id="applyFiltersBtn" type="button">Apply</button>
                     <button id="resetFiltersBtn" type="button" class="ghost-btn">Reset</button>
                 </div>
-
-                <div id="resultsMeta" class="results-meta">0 products loaded</div>
+                <div id="resultsMeta" class="results-meta">0 results</div>
             </aside>
 
-            <section>
-                <div class="section-header list-header">
+            <section class="listing-panel">
+                <div class="listing-head">
                     <div>
-                        <p class="section-kicker">Marketplace Listing</p>
+                        <p class="section-label">Just for you</p>
                         <h2>Available Products</h2>
                     </div>
                 </div>

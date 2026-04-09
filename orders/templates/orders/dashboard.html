@@ -4,124 +4,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders Workspace</title>
+    <title>Orders</title>
     <link rel="stylesheet" href="{% static 'orders/orders-ui.css' %}">
 </head>
 <body>
-    <div class="top-strip">
-        <div class="shell top-strip-inner">
-            <div class="top-links">
-                <a href="/">Home</a>
-                <a href="/login/">Login</a>
-                <a href="/signup/">Signup</a>
-                <a href="/logout/">Logout</a>
+    <div class="utility-bar">
+        <div class="utility-inner">
+            <div class="utility-links">
+                <a href="/login/">SAVE MORE ON APP</a>
+                <a href="/signup/">BECOME A SELLER</a>
+                <a href="/products/ui/">PRODUCTS</a>
+                <a href="/logout/">LOGOUT</a>
             </div>
-            <p class="top-note">Marketplace-style order dashboard</p>
         </div>
     </div>
 
-    <header class="market-header">
-        <div class="shell header-inner">
-            <a href="/orders/ui/" class="brand-block">
-                <span class="brand-mark">D</span>
-                <span class="brand-copy">
-                    <strong>Daraz Style</strong>
-                    <small>Orders Workspace</small>
-                </span>
-            </a>
-
-            <div class="search-block">
+    <header class="site-header">
+        <div class="header-main">
+            <a href="/" class="brand">shop<span>lane</span></a>
+            <div class="search-shell">
                 <label class="sr-only" for="productSearch">Search products</label>
-                <input id="productSearch" type="search" placeholder="Search in marketplace">
+                <input id="productSearch" type="search" placeholder="Search in Shoplane">
                 <button id="searchBtn" type="button">Search</button>
             </div>
-
-            <div class="header-actions">
-                <a href="/login/" class="header-link">Account</a>
-                <a href="#cartPanel" class="header-link">Cart</a>
+            <nav class="header-links">
+                <a href="/products/ui/">Products</a>
+                <a href="/orders/ui/">Orders</a>
+                <a href="/login/">Login</a>
+            </nav>
+            <div class="account-block">
+                <span class="header-label">Account</span>
+                <strong id="accountName">Guest</strong>
+            </div>
+            <div class="cart-badge-wrap">
+                <span id="roleBadge" class="role-badge">BROWSE</span>
+                <a href="#cartPanel" class="cart-link">Cart</a>
             </div>
         </div>
     </header>
 
     <main class="page-shell">
-        <section class="promo-banner shell">
-            <div class="promo-copy promo-copy-wide">
-                <p class="section-kicker">Daily marketplace flow</p>
-                <h1>Browse products, place orders, and manage seller updates in one familiar storefront.</h1>
-                <p class="hero-text">
-                    The page keeps your existing JWT workflow but presents it in a more recognizable shopping layout.
-                    Save your token once, search products, add them to cart, and review both buyer and seller orders.
-                </p>
-                <div class="inline-actions">
-                    <button id="loadDataBtn" type="button" class="ghost-btn">Refresh Data</button>
-                    <a href="/products/ui/" class="soft-link">View Products</a>
+        <section class="hero-strip">
+            <div class="hero-copy">
+                <p class="hero-kicker">Checkout center</p>
+                <h1>Build a cart, place an order, and manage seller updates in one Daraz-style workspace.</h1>
+                <p>Customers can add items to cart and sellers can review assigned items, payment totals, and status updates from the same clean page.</p>
+                <div class="hero-actions">
+                    <button id="loadDataBtn" type="button">Refresh Dashboard</button>
+                    <a href="/products/ui/" class="text-link">Browse products</a>
                 </div>
                 <div id="statusMessage" class="status-message" aria-live="polite"></div>
             </div>
+            <div class="hero-side">
+                <div class="promo-card">
+                    <span class="promo-label">Order Flow</span>
+                    <strong id="deliveryLine">Login to place orders and update seller status</strong>
+                    <p>Customer cart and seller order tracking are shown in separate panels below.</p>
+                </div>
+            </div>
         </section>
 
-        <section class="shell storefront-layout">
-            <section class="catalog-column">
-                <div class="section-header">
+        <section class="content-grid">
+            <section class="catalog-panel">
+                <div class="section-heading">
                     <div>
-                        <p class="section-kicker">Flash Picks</p>
-                        <h2>Active Products</h2>
+                        <p class="section-label">Available now</p>
+                        <h2>Products ready to add to cart</h2>
                     </div>
-                    <button id="refreshProductsBtn" type="button" class="ghost-btn">Reload</button>
+                    <button id="refreshProductsBtn" type="button" class="ghost-btn">Reload products</button>
                 </div>
                 <div id="productsGrid" class="products-grid">
-                    <p class="empty-state">Load data to see active products.</p>
+                    <p class="empty-state">Login and load data to see products.</p>
                 </div>
             </section>
 
-            <aside id="cartPanel" class="cart-column">
+            <aside id="cartPanel" class="cart-panel">
                 <div class="cart-card">
-                    <div class="section-header">
+                    <div class="section-heading compact">
                         <div>
-                            <p class="section-kicker">Cart Summary</p>
-                            <h2>Create Order</h2>
+                            <p class="section-label">My cart</p>
+                            <h2>Checkout summary</h2>
                         </div>
                     </div>
-                    <form id="orderForm" class="order-form">
+
+                    <form id="orderForm">
                         <div id="cartItems" class="cart-items">
-                            <p class="empty-state">Add products from the left to build your order.</p>
+                            <p class="empty-state">Your cart is empty. Add a few products to place an order.</p>
                         </div>
-                        <div class="cart-footer">
-                            <div id="cartSummary" class="cart-summary">0 items selected</div>
-                            <div class="inline-actions">
-                                <button type="submit">Place Order</button>
-                                <button id="clearCartBtn" type="button" class="ghost-btn">Clear</button>
+
+                        <div class="checkout-summary">
+                            <div class="summary-row">
+                                <span>Items</span>
+                                <strong id="cartSummary">0 items</strong>
+                            </div>
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <strong id="cartSubtotal">$0.00</strong>
+                            </div>
+                            <div class="summary-row total-row">
+                                <span>Total</span>
+                                <strong id="cartCheckoutTotal">$0.00</strong>
                             </div>
                         </div>
+
+                        <button type="submit" class="checkout-btn">Place Order</button>
+                        <button id="clearCartBtn" type="button" class="ghost-btn full-width">Clear cart</button>
                     </form>
                 </div>
             </aside>
         </section>
 
-        <section class="shell orders-section">
-            <div class="orders-card">
-                <div class="section-header">
+        <section class="orders-layout">
+            <section class="orders-panel">
+                <div class="section-heading">
                     <div>
-                        <p class="section-kicker">Buyer Center</p>
-                        <h2>My Orders</h2>
+                        <p class="section-label">Customer side</p>
+                        <h2>Orders you placed</h2>
                     </div>
                 </div>
                 <div id="myOrdersList" class="orders-list">
                     <p class="empty-state">Your orders will appear here.</p>
                 </div>
-            </div>
+            </section>
 
-            <div class="orders-card">
-                <div class="section-header">
+            <section class="orders-panel">
+                <div class="section-heading">
                     <div>
-                        <p class="section-kicker">Seller Center</p>
-                        <h2>Seller Orders</h2>
+                        <p class="section-label">Seller side</p>
+                        <h2>Assigned items and totals</h2>
                     </div>
                 </div>
                 <div id="sellerOrdersList" class="orders-list">
                     <p class="empty-state">Seller-assigned orders will appear here.</p>
                 </div>
-            </div>
+            </section>
         </section>
     </main>
 

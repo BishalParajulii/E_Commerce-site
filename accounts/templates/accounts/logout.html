@@ -4,18 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logout</title>
+    <title>Signed Out</title>
     <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
 </head>
 <body>
-    <main class="auth-shell auth-shell-narrow">
-        <section class="form-card logout-card">
-            <p class="eyebrow">Session Cleared</p>
-            <h1>Logout complete</h1>
-            <p class="lead">Your saved token has been removed from this browser.</p>
+    <header class="site-header">
+        <div class="header-main">
+            <a href="/" class="brand">shop<span>lane</span></a>
+            <div class="location-block">
+                <span class="header-label">Signed out</span>
+                <strong>Your browser token was removed</strong>
+            </div>
+            <div class="search-shell search-shell-static">
+                <input type="text" value="Sign in again to access protected pages" aria-label="Logout summary" readonly>
+                <button type="button" disabled>Logout</button>
+            </div>
+            <nav class="header-links">
+                <a href="/products/ui/">Products</a>
+                <a href="/orders/ui/">Orders</a>
+                <a href="/login/">Sign in</a>
+            </nav>
+            <div class="account-block">
+                <span class="header-label">Session</span>
+                <strong>Cleared</strong>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="single-panel">
+            <div class="section-heading">
+                <div>
+                    <p class="section-label">Signed out</p>
+                    <h2>Your browser session has been cleared</h2>
+                </div>
+            </div>
+            <p class="lead">Products and orders will ask you to sign in again before protected actions can run.</p>
             <div class="hero-actions">
-                <a class="btn" href="/login/">Login Again</a>
-                <a class="btn btn-secondary" href="/">Back Home</a>
+                <a class="btn" href="/login/">Sign in again</a>
+                <a class="btn btn-secondary" href="/">Back to home</a>
             </div>
         </section>
     </main>

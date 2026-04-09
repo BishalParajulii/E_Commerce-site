@@ -4,34 +4,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce Auth</title>
+    <title>Shoplane</title>
     <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
 </head>
 <body>
-    <main class="auth-shell">
-        <section class="hero-card">
+    <header class="site-header">
+        <div class="header-main">
+            <a href="/" class="brand">shop<span>lane</span></a>
+            <div class="location-block">
+                <span class="header-label">Account hub</span>
+                <strong>Authentication and session management</strong>
+            </div>
+            <div class="search-shell search-shell-static">
+                <input type="text" value="Sign in, register, and manage sessions" aria-label="Account summary" readonly>
+                <button type="button" disabled>Account</button>
+            </div>
+            <nav class="header-links">
+                <a href="/products/ui/">Products</a>
+                <a href="/orders/ui/">Orders</a>
+                <a href="/login/">Sign in</a>
+                <a href="/logout/">Logout</a>
+            </nav>
+            <div class="account-block">
+                <span class="header-label">Session</span>
+                <strong id="accountStatus">Not signed in</strong>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="hero-strip">
             <div class="hero-copy">
-                <p class="eyebrow">Django Storefront</p>
-                <h1>Clean login and signup pages for your e-commerce app.</h1>
-                <p class="lead">
-                    Start with account creation, sign in to get a JWT token, and move into the orders workspace
-                    with a proper browser-facing UI instead of raw API forms.
+                <p class="hero-kicker">Account access</p>
+                <h1>Use the same clean storefront UI for signup, login, and session status.</h1>
+                <p>
+                    Create your account, save your JWT session in this browser, and move straight into product
+                    browsing or order management with the same Amazon-inspired layout.
                 </p>
                 <div class="hero-actions">
-                    <a class="btn" href="/signup/">Create Account</a>
-                    <a class="btn btn-secondary" href="/login/">Sign In</a>
-                    <a class="btn btn-ghost" href="/orders/ui/">Orders UI</a>
+                    <a class="btn" href="/signup/">Create account</a>
+                    <a class="btn btn-secondary" href="/login/">Sign in</a>
+                    <a class="btn btn-ghost" href="/orders/ui/">Open orders</a>
                 </div>
             </div>
+        </section>
 
-            <aside class="status-panel">
-                <p class="panel-label">Session Snapshot</p>
+        <section class="account-grid">
+            <section class="account-panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-label">Start here</p>
+                        <h2>How the account flow works</h2>
+                    </div>
+                </div>
+                <div class="info-list">
+                    <article class="info-row">
+                        <strong>1. Register</strong>
+                        <p>Create a customer, seller, or admin account for the storefront workspace.</p>
+                    </article>
+                    <article class="info-row">
+                        <strong>2. Sign in</strong>
+                        <p>Your JWT token is stored locally so the products and orders pages can call protected APIs.</p>
+                    </article>
+                    <article class="info-row">
+                        <strong>3. Continue</strong>
+                        <p>Customers can add items to cart, and sellers can review totals and update order status.</p>
+                    </article>
+                </div>
+            </section>
+
+            <aside class="account-panel session-panel">
+                <div class="section-heading compact">
+                    <div>
+                        <p class="section-label">Saved session</p>
+                        <h2>Browser token state</h2>
+                    </div>
+                </div>
                 <div id="authState" class="token-state">
                     <p>No token saved in this browser yet.</p>
                 </div>
-                <div class="stack-actions">
-                    <a class="btn btn-secondary" href="/login/">Save a token</a>
-                    <a class="btn btn-ghost" href="/logout/">Clear token</a>
+                <div class="panel-links">
+                    <a href="/products/ui/">Browse products</a>
+                    <a href="/orders/ui/">Open orders dashboard</a>
                 </div>
             </aside>
         </section>

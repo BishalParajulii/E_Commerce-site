@@ -43,7 +43,13 @@ async function postJson(url, body) {
 
 function renderAuthState() {
     const authState = document.getElementById("authState");
+    const accountStatus = document.getElementById("accountStatus");
     if (!authState) {
+        if (accountStatus) {
+            const rawUser = localStorage.getItem(userKey);
+            const user = rawUser ? JSON.parse(rawUser) : null;
+            accountStatus.textContent = user?.username || "Not signed in";
+        }
         return;
     }
 
@@ -53,7 +59,14 @@ function renderAuthState() {
 
     if (!token) {
         authState.innerHTML = "<p>No token saved in this browser yet.</p>";
+        if (accountStatus) {
+            accountStatus.textContent = "Not signed in";
+        }
         return;
+    }
+
+    if (accountStatus) {
+        accountStatus.textContent = `${user?.username || "Unknown"} (${user?.role || "user"})`;
     }
 
     authState.innerHTML = `

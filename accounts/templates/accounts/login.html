@@ -4,31 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Sign In</title>
     <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
 </head>
 <body>
-    <main class="auth-shell auth-shell-narrow">
-        <section class="form-card">
-            <div class="form-copy">
-                <p class="eyebrow">Welcome Back</p>
-                <h1>Sign in</h1>
-                <p class="lead">Use your username and password to receive a JWT token for the API and UI.</p>
+    <div class="utility-bar">
+        <div class="utility-inner">
+            <div class="utility-links">
+                <a href="/signup/">SAVE MORE ON APP</a>
+                <a href="/signup/">SIGN UP</a>
+                <a href="/products/ui/">PRODUCTS</a>
+                <a href="/orders/ui/">ORDERS</a>
             </div>
+        </div>
+    </div>
 
-            <form id="loginForm" class="auth-form">
-                <label for="username">Username</label>
-                <input id="username" name="username" type="text" required>
+    <header class="site-header">
+        <div class="header-main">
+            <a href="/" class="brand">shop<span>lane</span></a>
+            <div class="search-shell search-shell-static">
+                <input type="text" value="Login required for products and orders" aria-label="Login details" readonly>
+                <button type="button" disabled>Login</button>
+            </div>
+            <nav class="header-links">
+                <a href="/products/ui/">Products</a>
+                <a href="/orders/ui/">Orders</a>
+                <a href="/signup/">Create account</a>
+            </nav>
+            <div class="account-block">
+                <span class="header-label">Sign in</span>
+                <strong>Save your browser session</strong>
+            </div>
+        </div>
+    </header>
 
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" required>
+    <main class="page-shell">
+        <section class="hero-strip login-hero">
+            <div class="hero-copy">
+                <p class="hero-kicker">Welcome back</p>
+                <h1>Sign in with the same Daraz-style storefront experience.</h1>
+                <p>Save your JWT session here, then continue to product browsing, cart checkout, and seller order management.</p>
+            </div>
+        </section>
 
-                <button class="btn" type="submit">Login</button>
-                <p class="form-link">Need an account? <a href="/signup/">Create one</a></p>
-            </form>
+        <section class="auth-layout">
+            <section class="auth-panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-label">Sign in</p>
+                        <h2>Access your cart and seller dashboard</h2>
+                    </div>
+                </div>
+                <p class="lead">Your session is stored in this browser so the products and orders pages can call the protected API.</p>
 
-            <div id="formMessage" class="form-message" aria-live="polite"></div>
+                <form id="loginForm" class="auth-form">
+                    <div class="field">
+                        <label for="username">Username</label>
+                        <input id="username" name="username" type="text" required>
+                    </div>
 
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input id="password" name="password" type="password" required>
+                    </div>
+
+                    <button class="btn full-width" type="submit">Sign in</button>
+                </form>
+
+                <div id="formMessage" class="form-message" aria-live="polite"></div>
+                <p class="form-link">New to Shoplane? <a href="/signup/">Create your account</a></p>
+            </section>
+
+            <aside class="auth-side-panel">
+                <p class="section-label">Why sign in</p>
+                <div class="info-list">
+                    <article class="info-row">
+                        <strong>Browse products</strong>
+                        <p>Load the protected catalog and search active inventory.</p>
+                    </article>
+                    <article class="info-row">
+                        <strong>Place orders</strong>
+                        <p>Add products to cart, check totals, and submit an order.</p>
+                    </article>
+                    <article class="info-row">
+                        <strong>Seller tools</strong>
+                        <p>See seller-specific totals and update order status from the same dashboard.</p>
+                    </article>
+                </div>
+            </aside>
         </section>
     </main>
 

@@ -4,40 +4,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Create Account</title>
     <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
 </head>
 <body>
-    <main class="auth-shell auth-shell-narrow">
-        <section class="form-card">
-            <div class="form-copy">
-                <p class="eyebrow">New Account</p>
-                <h1>Create your profile</h1>
-                <p class="lead">Register as a customer, seller, or admin and then sign in to get your token.</p>
+    <header class="site-header">
+        <div class="header-main">
+            <a href="/" class="brand">shop<span>lane</span></a>
+            <div class="location-block">
+                <span class="header-label">Create account</span>
+                <strong>Choose the role you need</strong>
             </div>
+            <div class="search-shell search-shell-static">
+                <input type="text" value="Customer, seller, or admin registration" aria-label="Register details" readonly>
+                <button type="button" disabled>Signup</button>
+            </div>
+            <nav class="header-links">
+                <a href="/products/ui/">Products</a>
+                <a href="/orders/ui/">Orders</a>
+                <a href="/login/">Sign in</a>
+            </nav>
+            <div class="account-block">
+                <span class="header-label">Next step</span>
+                <strong>Login after signup</strong>
+            </div>
+        </div>
+    </header>
 
-            <form id="registerForm" class="auth-form">
-                <label for="registerUsername">Username</label>
-                <input id="registerUsername" name="username" type="text" required>
+    <main class="page-shell">
+        <section class="auth-layout">
+            <section class="auth-panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-label">Create account</p>
+                        <h2>Set up your customer or seller profile</h2>
+                    </div>
+                </div>
+                <p class="lead">Choose a role, register once, then sign in to start browsing or managing orders.</p>
 
-                <label for="registerEmail">Email</label>
-                <input id="registerEmail" name="email" type="email" required>
+                <form id="registerForm" class="auth-form">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="registerUsername">Username</label>
+                            <input id="registerUsername" name="username" type="text" required>
+                        </div>
 
-                <label for="registerRole">Role</label>
-                <select id="registerRole" name="role" required>
-                    <option value="customer">Customer</option>
-                    <option value="seller">Seller</option>
-                    <option value="admin">Admin</option>
-                </select>
+                        <div class="field">
+                            <label for="registerEmail">Email</label>
+                            <input id="registerEmail" name="email" type="email" required>
+                        </div>
 
-                <label for="registerPassword">Password</label>
-                <input id="registerPassword" name="password" type="password" required>
+                        <div class="field">
+                            <label for="registerRole">Role</label>
+                            <select id="registerRole" name="role" required>
+                                <option value="customer">Customer</option>
+                                <option value="seller">Seller</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
 
-                <button class="btn" type="submit">Sign Up</button>
+                        <div class="field">
+                            <label for="registerPassword">Password</label>
+                            <input id="registerPassword" name="password" type="password" required>
+                        </div>
+                    </div>
+
+                    <button class="btn full-width" type="submit">Create account</button>
+                </form>
+
+                <div id="formMessage" class="form-message" aria-live="polite"></div>
                 <p class="form-link">Already registered? <a href="/login/">Sign in</a></p>
-            </form>
+            </section>
 
-            <div id="formMessage" class="form-message" aria-live="polite"></div>
+            <aside class="auth-side-panel">
+                <p class="section-label">Roles</p>
+                <div class="info-list">
+                    <article class="info-row">
+                        <strong>Customer</strong>
+                        <p>Browse inventory, add items to cart, and place orders.</p>
+                    </article>
+                    <article class="info-row">
+                        <strong>Seller</strong>
+                        <p>Own products, review order items assigned to you, and update status.</p>
+                    </article>
+                    <article class="info-row">
+                        <strong>Admin</strong>
+                        <p>Use broader platform permissions for management tasks.</p>
+                    </article>
+                </div>
+            </aside>
         </section>
     </main>
 
