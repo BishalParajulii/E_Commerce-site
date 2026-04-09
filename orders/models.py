@@ -9,7 +9,7 @@ class Order(models.Model):
     STSTUS_CODE = (
         ('pending' , 'Pending'),
         ('processing' , 'Processing'),
-        ('shipped' , 'Shipping'),
+        ('shipping' , 'Shipping'),
         ('delivered' , 'Delivered')
     )
     

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
+</head>
+<body>
+    <main class="auth-shell auth-shell-narrow">
+        <section class="form-card">
+            <div class="form-copy">
+                <p class="eyebrow">New Account</p>
+                <h1>Create your profile</h1>
+                <p class="lead">Register as a customer, seller, or admin and then sign in to get your token.</p>
+            </div>
+
+            <form id="registerForm" class="auth-form">
+                <label for="registerUsername">Username</label>
+                <input id="registerUsername" name="username" type="text" required>
+
+                <label for="registerEmail">Email</label>
+                <input id="registerEmail" name="email" type="email" required>
+
+                <label for="registerRole">Role</label>
+                <select id="registerRole" name="role" required>
+                    <option value="customer">Customer</option>
+                    <option value="seller">Seller</option>
+                    <option value="admin">Admin</option>
+                </select>
+
+                <label for="registerPassword">Password</label>
+                <input id="registerPassword" name="password" type="password" required>
+
+                <button class="btn" type="submit">Sign Up</button>
+                <p class="form-link">Already registered? <a href="/login/">Sign in</a></p>
+            </form>
+
+            <div id="formMessage" class="form-message" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <script src="{% static 'accounts/auth-ui.js' %}"></script>
+</body>
+</html>

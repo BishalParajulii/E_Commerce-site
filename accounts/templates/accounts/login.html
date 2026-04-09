@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
+</head>
+<body>
+    <main class="auth-shell auth-shell-narrow">
+        <section class="form-card">
+            <div class="form-copy">
+                <p class="eyebrow">Welcome Back</p>
+                <h1>Sign in</h1>
+                <p class="lead">Use your username and password to receive a JWT token for the API and UI.</p>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" required>
+
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" required>
+
+                <button class="btn" type="submit">Login</button>
+                <p class="form-link">Need an account? <a href="/signup/">Create one</a></p>
+            </form>
+
+            <div id="formMessage" class="form-message" aria-live="polite"></div>
+
+            <section id="loginResult" class="result-card hidden">
+                <p class="panel-label">Saved Session</p>
+                <pre id="tokenPreview" class="token-preview"></pre>
+                <div class="hero-actions">
+                    <a class="btn btn-secondary" href="/orders/ui/">Open Orders UI</a>
+                    <a class="btn btn-ghost" href="/">Back Home</a>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="{% static 'accounts/auth-ui.js' %}"></script>
+</body>
+</html>

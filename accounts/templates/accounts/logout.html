@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
+</head>
+<body>
+    <main class="auth-shell auth-shell-narrow">
+        <section class="form-card logout-card">
+            <p class="eyebrow">Session Cleared</p>
+            <h1>Logout complete</h1>
+            <p class="lead">Your saved token has been removed from this browser.</p>
+            <div class="hero-actions">
+                <a class="btn" href="/login/">Login Again</a>
+                <a class="btn btn-secondary" href="/">Back Home</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="{% static 'accounts/auth-ui.js' %}"></script>
+</body>
+</html>

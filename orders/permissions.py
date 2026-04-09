@@ -1,6 +1,7 @@
 from rest_framework.permissions import BasePermission
 
+
 class IsSellerOfOrder(BasePermission):
-    def has_permission(self, request, view , obj):
+    def has_object_permission(self, request, view, obj):
         user = request.user
-        return obj.items.filter(seller=user).exists() 
+        return obj.items.filter(seller=user).exists()

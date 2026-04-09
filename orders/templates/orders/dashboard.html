@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Workspace</title>
+    <link rel="stylesheet" href="{% static 'orders/orders-ui.css' %}">
+</head>
+<body>
+    <div class="top-strip">
+        <div class="shell top-strip-inner">
+            <div class="top-links">
+                <a href="/">Home</a>
+                <a href="/login/">Login</a>
+                <a href="/signup/">Signup</a>
+                <a href="/logout/">Logout</a>
+            </div>
+            <p class="top-note">Marketplace-style order dashboard</p>
+        </div>
+    </div>
+
+    <header class="market-header">
+        <div class="shell header-inner">
+            <a href="/orders/ui/" class="brand-block">
+                <span class="brand-mark">D</span>
+                <span class="brand-copy">
+                    <strong>Daraz Style</strong>
+                    <small>Orders Workspace</small>
+                </span>
+            </a>
+
+            <div class="search-block">
+                <label class="sr-only" for="productSearch">Search products</label>
+                <input id="productSearch" type="search" placeholder="Search in marketplace">
+                <button id="searchBtn" type="button">Search</button>
+            </div>
+
+            <div class="header-actions">
+                <a href="/login/" class="header-link">Account</a>
+                <a href="#cartPanel" class="header-link">Cart</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="promo-banner shell">
+            <div class="promo-copy">
+                <p class="section-kicker">Daily marketplace flow</p>
+                <h1>Browse products, place orders, and manage seller updates in one familiar storefront.</h1>
+                <p class="hero-text">
+                    The page keeps your existing JWT workflow but presents it in a more recognizable shopping layout.
+                    Save your token once, search products, add them to cart, and review both buyer and seller orders.
+                </p>
+            </div>
+
+            <div class="token-card">
+                <div class="token-head">
+                    <div>
+                        <p class="section-kicker">Access</p>
+                        <h2>JWT Session</h2>
+                    </div>
+                    <button id="loadDataBtn" type="button" class="ghost-btn">Refresh</button>
+                </div>
+                <label for="tokenInput">Paste access token</label>
+                <textarea id="tokenInput" rows="5" placeholder="Paste the Bearer access token from /login/ here"></textarea>
+                <div class="inline-actions">
+                    <button id="saveTokenBtn" type="button">Save Token</button>
+                    <a href="/login/" class="soft-link">Get Token</a>
+                </div>
+                <div id="statusMessage" class="status-message" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section class="shell storefront-layout">
+            <section class="catalog-column">
+                <div class="section-header">
+                    <div>
+                        <p class="section-kicker">Flash Picks</p>
+                        <h2>Active Products</h2>
+                    </div>
+                    <button id="refreshProductsBtn" type="button" class="ghost-btn">Reload</button>
+                </div>
+                <div id="productsGrid" class="products-grid">
+                    <p class="empty-state">Load data to see active products.</p>
+                </div>
+            </section>
+
+            <aside id="cartPanel" class="cart-column">
+                <div class="cart-card">
+                    <div class="section-header">
+                        <div>
+                            <p class="section-kicker">Cart Summary</p>
+                            <h2>Create Order</h2>
+                        </div>
+                    </div>
+                    <form id="orderForm" class="order-form">
+                        <div id="cartItems" class="cart-items">
+                            <p class="empty-state">Add products from the left to build your order.</p>
+                        </div>
+                        <div class="cart-footer">
+                            <div id="cartSummary" class="cart-summary">0 items selected</div>
+                            <div class="inline-actions">
+                                <button type="submit">Place Order</button>
+                                <button id="clearCartBtn" type="button" class="ghost-btn">Clear</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </aside>
+        </section>
+
+        <section class="shell orders-section">
+            <div class="orders-card">
+                <div class="section-header">
+                    <div>
+                        <p class="section-kicker">Buyer Center</p>
+                        <h2>My Orders</h2>
+                    </div>
+                </div>
+                <div id="myOrdersList" class="orders-list">
+                    <p class="empty-state">Your orders will appear here.</p>
+                </div>
+            </div>
+
+            <div class="orders-card">
+                <div class="section-header">
+                    <div>
+                        <p class="section-kicker">Seller Center</p>
+                        <h2>Seller Orders</h2>
+                    </div>
+                </div>
+                <div id="sellerOrdersList" class="orders-list">
+                    <p class="empty-state">Seller-assigned orders will appear here.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{% static 'orders/orders-ui.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Auth</title>
+    <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
+</head>
+<body>
+    <main class="auth-shell">
+        <section class="hero-card">
+            <div class="hero-copy">
+                <p class="eyebrow">Django Storefront</p>
+                <h1>Clean login and signup pages for your e-commerce app.</h1>
+                <p class="lead">
+                    Start with account creation, sign in to get a JWT token, and move into the orders workspace
+                    with a proper browser-facing UI instead of raw API forms.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn" href="/signup/">Create Account</a>
+                    <a class="btn btn-secondary" href="/login/">Sign In</a>
+                    <a class="btn btn-ghost" href="/orders/ui/">Orders UI</a>
+                </div>
+            </div>
+
+            <aside class="status-panel">
+                <p class="panel-label">Session Snapshot</p>
+                <div id="authState" class="token-state">
+                    <p>No token saved in this browser yet.</p>
+                </div>
+                <div class="stack-actions">
+                    <a class="btn btn-secondary" href="/login/">Save a token</a>
+                    <a class="btn btn-ghost" href="/logout/">Clear token</a>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <script src="{% static 'accounts/auth-ui.js' %}"></script>
+</body>
+</html>
