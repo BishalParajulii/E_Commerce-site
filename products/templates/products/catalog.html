@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Catalog</title>
+    <link rel="stylesheet" href="{% static 'products/products-ui.css' %}">
+</head>
+<body>
+    <div class="top-strip">
+        <div class="shell top-strip-inner">
+            <div class="top-links">
+                <a href="/">Home</a>
+                <a href="/login/">Login</a>
+                <a href="/signup/">Signup</a>
+                <a href="/orders/ui/">Orders</a>
+            </div>
+            <p class="top-note">Logged-in product catalog</p>
+        </div>
+    </div>
+
+    <header class="market-header">
+        <div class="shell header-inner">
+            <a href="/products/ui/" class="brand-block">
+                <span class="brand-mark">P</span>
+                <span class="brand-copy">
+                    <strong>Product Hub</strong>
+                    <small>Marketplace listing</small>
+                </span>
+            </a>
+
+            <div class="search-block">
+                <label class="sr-only" for="productSearch">Search products</label>
+                <input id="productSearch" type="search" placeholder="Search products by name, description, seller">
+                <button id="searchBtn" type="button">Search</button>
+            </div>
+
+            <div class="header-actions">
+                <a href="/login/" class="header-link">Account</a>
+                <a href="/orders/ui/" class="header-link">Orders</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell shell">
+        <section class="hero-panel">
+            <div class="hero-copy-wide">
+                <p class="section-kicker">Catalog Access</p>
+                <h1>Browse active products after login.</h1>
+                <p class="hero-text">
+                    This page uses the token saved from your login screen. If there is no token, the product request
+                    will fail and you can log in again from the login page.
+                </p>
+                <div class="inline-actions">
+                    <button id="loadProductsBtn" type="button" class="ghost-btn">Load Products</button>
+                    <a href="/login/" class="soft-link">Login</a>
+                    <a href="/orders/ui/" class="soft-link">Orders</a>
+                </div>
+                <div id="statusMessage" class="status-message" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            <aside class="sidebar-card">
+                <div class="section-header">
+                    <div>
+                        <p class="section-kicker">Quick Filters</p>
+                        <h2>Catalog Tools</h2>
+                    </div>
+                </div>
+                <label for="sortSelect">Sort</label>
+                <select id="sortSelect">
+                    <option value="">Default</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="latest">Newest</option>
+                </select>
+
+                <label for="ownerFilter">Seller contains</label>
+                <input id="ownerFilter" type="text" placeholder="seller name">
+
+                <div class="inline-actions">
+                    <button id="applyFiltersBtn" type="button">Apply</button>
+                    <button id="resetFiltersBtn" type="button" class="ghost-btn">Reset</button>
+                </div>
+
+                <div id="resultsMeta" class="results-meta">0 products loaded</div>
+            </aside>
+
+            <section>
+                <div class="section-header list-header">
+                    <div>
+                        <p class="section-kicker">Marketplace Listing</p>
+                        <h2>Available Products</h2>
+                    </div>
+                </div>
+                <div id="productsGrid" class="products-grid">
+                    <p class="empty-state">Load products to view the catalog.</p>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="{% static 'products/products-ui.js' %}"></script>
+</body>
+</html>

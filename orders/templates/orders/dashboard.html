@@ -45,28 +45,16 @@
 
     <main class="page-shell">
         <section class="promo-banner shell">
-            <div class="promo-copy">
+            <div class="promo-copy promo-copy-wide">
                 <p class="section-kicker">Daily marketplace flow</p>
                 <h1>Browse products, place orders, and manage seller updates in one familiar storefront.</h1>
                 <p class="hero-text">
                     The page keeps your existing JWT workflow but presents it in a more recognizable shopping layout.
                     Save your token once, search products, add them to cart, and review both buyer and seller orders.
                 </p>
-            </div>
-
-            <div class="token-card">
-                <div class="token-head">
-                    <div>
-                        <p class="section-kicker">Access</p>
-                        <h2>JWT Session</h2>
-                    </div>
-                    <button id="loadDataBtn" type="button" class="ghost-btn">Refresh</button>
-                </div>
-                <label for="tokenInput">Paste access token</label>
-                <textarea id="tokenInput" rows="5" placeholder="Paste the Bearer access token from /login/ here"></textarea>
                 <div class="inline-actions">
-                    <button id="saveTokenBtn" type="button">Save Token</button>
-                    <a href="/login/" class="soft-link">Get Token</a>
+                    <button id="loadDataBtn" type="button" class="ghost-btn">Refresh Data</button>
+                    <a href="/products/ui/" class="soft-link">View Products</a>
                 </div>
                 <div id="statusMessage" class="status-message" aria-live="polite"></div>
             </div>

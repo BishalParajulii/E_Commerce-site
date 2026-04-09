@@ -1,5 +1,3 @@
-const tokenInput = document.getElementById("tokenInput");
-const saveTokenBtn = document.getElementById("saveTokenBtn");
 const loadDataBtn = document.getElementById("loadDataBtn");
 const refreshProductsBtn = document.getElementById("refreshProductsBtn");
 const clearCartBtn = document.getElementById("clearCartBtn");
@@ -18,15 +16,13 @@ const cart = new Map();
 const statusChoices = ["pending", "processing", "shipping", "delivered"];
 let allProducts = [];
 
-tokenInput.value = localStorage.getItem(storageKey) || "";
-
 function setMessage(message, kind = "success") {
     statusMessage.textContent = message;
     statusMessage.className = `status-message ${kind}`;
 }
 
 function getToken() {
-    return tokenInput.value.trim();
+    return (localStorage.getItem(storageKey) || "").trim();
 }
 
 async function apiFetch(url, options = {}) {
@@ -287,11 +283,6 @@ function runSearch() {
     renderProducts(filterProducts());
 }
 
-saveTokenBtn.addEventListener("click", () => {
-    localStorage.setItem(storageKey, getToken());
-    setMessage("Token saved in this browser.");
-});
-
 loadDataBtn.addEventListener("click", loadAllData);
 refreshProductsBtn.addEventListener("click", async () => {
     try {
@@ -335,3 +326,7 @@ orderForm.addEventListener("submit", async (event) => {
 });
 
 renderCart();
+
+if (getToken()) {
+    loadAllData();
+}

@@ -93,9 +93,6 @@ async function handleLogin() {
     }
 
     const message = document.getElementById("formMessage");
-    const resultCard = document.getElementById("loginResult");
-    const tokenPreview = document.getElementById("tokenPreview");
-
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const formData = new FormData(form);
@@ -106,19 +103,6 @@ async function handleLogin() {
             localStorage.setItem(userKey, JSON.stringify(payload.user || {}));
 
             setMessage(message, "Login successful. Redirecting to the orders page...");
-
-            if (resultCard && tokenPreview) {
-                tokenPreview.textContent = JSON.stringify(
-                    {
-                        user: payload.user,
-                        access: payload.access,
-                        refresh: payload.refresh,
-                    },
-                    null,
-                    2
-                );
-                resultCard.classList.remove("hidden");
-            }
 
             window.setTimeout(() => {
                 window.location.href = "/orders/ui/";
