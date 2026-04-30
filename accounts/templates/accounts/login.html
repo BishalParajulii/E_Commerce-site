@@ -4,68 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In</title>
-    <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
+    <title>Shoplane | Sign In</title>
+    <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}?v=marketplace-2">
 </head>
 <body>
-    <div class="utility-bar">
-        <div class="utility-inner">
-            <div class="utility-links">
-                <a href="/signup/">SAVE MORE ON APP</a>
-                <a href="/signup/">SIGN UP</a>
-                <a href="/products/ui/">PRODUCTS</a>
-                <a href="/orders/ui/">ORDERS</a>
-            </div>
-        </div>
+    <div class="top-strip">
+        <span>Fast delivery on eligible items</span>
+        <span>30-day returns</span>
+        <span>Secure checkout</span>
     </div>
 
     <header class="site-header">
         <div class="header-main">
-            <a href="/" class="brand">shop<span>lane</span></a>
-            <div class="search-shell search-shell-static">
-                <input type="text" value="Login required for products and orders" aria-label="Login details" readonly>
-                <button type="button" disabled>Login</button>
+            <a href="/" class="brand" aria-label="Shoplane home">Shop<span>lane</span></a>
+            <div class="search-shell">
+                <select aria-label="Search category">
+                    <option>All</option>
+                    <option>Electronics</option>
+                    <option>Fashion</option>
+                    <option>Beauty</option>
+                </select>
+                <input type="search" placeholder="Search products and brands" aria-label="Search products">
+                <a class="search-button" href="/products/ui/">Search</a>
             </div>
-            <nav class="header-links">
-                <a href="/products/ui/">Products</a>
+            <nav class="header-actions" aria-label="Account navigation">
+                <a href="/products/ui/">Shop</a>
                 <a href="/orders/ui/">Orders</a>
-                <a href="/signup/">Create account</a>
+                <span id="header-auth"><a href="/login/">Sign in</a></span>
             </nav>
-            <div class="account-block">
-                <span class="header-label">Sign in</span>
-                <strong>Save your browser session</strong>
-            </div>
         </div>
+        <nav class="department-nav" aria-label="Departments">
+            <a href="/products/ui/">All</a>
+            <a href="/products/ui/#catalog">Electronics</a>
+            <a href="/products/ui/#catalog">Fashion</a>
+            <a href="/products/ui/#catalog">Accessories</a>
+            <a href="/products/ui/#catalog">Beauty</a>
+        </nav>
     </header>
 
-    <main class="page-shell">
-        <section class="hero-strip login-hero">
-            <div class="hero-copy">
-                <p class="hero-kicker">Welcome back</p>
-                <h1>Sign in with the same Daraz-style storefront experience.</h1>
-                <p>Save your JWT session here, then continue to product browsing, cart checkout, and seller order management.</p>
-            </div>
-        </section>
-
+    <main class="auth-shell">
         <section class="auth-layout">
-            <section class="auth-panel">
-                <div class="section-heading">
-                    <div>
-                        <p class="section-label">Sign in</p>
-                        <h2>Access your cart and seller dashboard</h2>
-                    </div>
-                </div>
-                <p class="lead">Your session is stored in this browser so the products and orders pages can call the protected API.</p>
+            <section class="auth-card">
+                <p class="section-label">Sign in</p>
+                <h1>Welcome back</h1>
+                <p class="lead">Sign in to load protected products, keep your cart connected, and manage orders.</p>
 
                 <form id="loginForm" class="auth-form">
                     <div class="field">
                         <label for="username">Username</label>
-                        <input id="username" name="username" type="text" required>
+                        <input id="username" name="username" type="text" autocomplete="username" required>
                     </div>
 
                     <div class="field">
                         <label for="password">Password</label>
-                        <input id="password" name="password" type="password" required>
+                        <input id="password" name="password" type="password" autocomplete="current-password" required>
                     </div>
 
                     <button class="btn full-width" type="submit">Sign in</button>
@@ -75,26 +67,26 @@
                 <p class="form-link">New to Shoplane? <a href="/signup/">Create your account</a></p>
             </section>
 
-            <aside class="auth-side-panel">
-                <p class="section-label">Why sign in</p>
-                <div class="info-list">
-                    <article class="info-row">
-                        <strong>Browse products</strong>
-                        <p>Load the protected catalog and search active inventory.</p>
+            <aside class="help-panel">
+                <h2>Why sign in?</h2>
+                <div class="help-list">
+                    <article>
+                        <strong>Load real inventory</strong>
+                        <p>Use your saved session to access protected product data.</p>
                     </article>
-                    <article class="info-row">
-                        <strong>Place orders</strong>
-                        <p>Add products to cart, check totals, and submit an order.</p>
+                    <article>
+                        <strong>Track orders</strong>
+                        <p>Open your order dashboard after checkout or seller activity.</p>
                     </article>
-                    <article class="info-row">
-                        <strong>Seller tools</strong>
-                        <p>See seller-specific totals and update order status from the same dashboard.</p>
+                    <article>
+                        <strong>Shop faster</strong>
+                        <p>Return to the storefront after login and continue browsing.</p>
                     </article>
                 </div>
             </aside>
         </section>
     </main>
 
-    <script src="{% static 'accounts/auth-ui.js' %}"></script>
+    <script src="{% static 'accounts/auth-ui.js' %}?v=marketplace-2"></script>
 </body>
 </html>

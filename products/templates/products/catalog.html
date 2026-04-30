@@ -4,102 +4,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title>Shoplane | Shop Online</title>
     <link rel="stylesheet" href="{% static 'products/products-ui.css' %}">
 </head>
 <body>
-    <div class="utility-bar">
-        <div class="utility-inner">
-            <div class="utility-links">
-                <a href="/login/">SAVE MORE ON APP</a>
-                <a href="/signup/">BECOME A SELLER</a>
-                <a href="/orders/ui/">MY ORDERS</a>
-                <a href="/logout/">LOGOUT</a>
-            </div>
-        </div>
+    <div class="top-strip">
+        <span>Fast delivery on eligible items</span>
+        <span>30-day returns</span>
+        <span>Secure checkout</span>
     </div>
 
     <header class="site-header">
         <div class="header-main">
-            <a href="/" class="brand">shop<span>lane</span></a>
-            <div class="search-shell">
-                <label class="sr-only" for="productSearch">Search products</label>
-                <input id="productSearch" type="search" placeholder="Search in Shoplane">
-                <button id="searchBtn" type="button">Search</button>
-            </div>
-            <nav class="header-links">
-                <a href="/products/ui/">Products</a>
+            <button class="menu-button mobile-trigger" id="mobileMenuOpen" type="button" aria-label="Open menu">☰</button>
+            <a href="/" class="brand" aria-label="Shoplane home">Shop<span>lane</span></a>
+
+            <label class="search-shell" for="productSearch">
+                <select aria-label="Search category">
+                    <option>All</option>
+                    <option>Electronics</option>
+                    <option>Fashion</option>
+                    <option>Home</option>
+                    <option>Beauty</option>
+                </select>
+                <input id="productSearch" type="search" placeholder="Search products, brands, and categories">
+                <span class="search-button" aria-hidden="true">Search</span>
+            </label>
+
+            <nav class="header-actions" aria-label="Account and cart">
+                <span id="header-auth"><a href="/login/">Sign in</a></span>
                 <a href="/orders/ui/">Orders</a>
-                <a href="/login/">Login</a>
+                <button class="cart-button cart-trigger" id="cartOpenBtn" type="button">
+                    Cart <span id="cartCount" class="cart-count">0</span>
+                </button>
             </nav>
-            <div class="account-block">
-                <span class="header-label">Welcome</span>
-                <strong id="accountName">Guest</strong>
-            </div>
         </div>
+
+        <nav class="department-nav" aria-label="Departments">
+            <a href="#catalog">All</a>
+            <a href="#catalog" data-category-link="Tech">Electronics</a>
+            <a href="#catalog" data-category-link="Apparel">Fashion</a>
+            <a href="#catalog" data-category-link="Accessories">Accessories</a>
+            <a href="#catalog" data-category-link="Beauty">Beauty</a>
+            <a href="#catalog" data-category-link="Footwear">Footwear</a>
+            <a href="#checkout">Checkout</a>
+        </nav>
     </header>
 
-    <main class="page-shell">
-        <section class="hero-strip">
-            <div class="hero-copy">
-                <p class="hero-kicker">Shoplane mall</p>
-                <h1>Products, deals, and categories in a Daraz-style storefront.</h1>
-                <p>Browse marketplace inventory with a brighter promo layout, cleaner product rail, and simpler controls.</p>
-                <div class="hero-actions">
-                    <button id="loadProductsBtn" type="button">Load Products</button>
-                    <a href="/orders/ui/" class="text-link">Go to orders</a>
-                </div>
-                <div id="statusMessage" class="status-message" aria-live="polite"></div>
+    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <div class="mobile-menu-head">
+            <a href="/" class="brand">Shop<span>lane</span></a>
+            <button class="menu-button" id="mobileMenuClose" type="button" aria-label="Close menu">×</button>
+        </div>
+        <nav class="mobile-links" aria-label="Mobile departments">
+            <a href="#catalog">All products</a>
+            <a href="#catalog" data-category-link="Tech">Electronics</a>
+            <a href="#catalog" data-category-link="Apparel">Fashion</a>
+            <a href="#catalog" data-category-link="Accessories">Accessories</a>
+            <a href="#catalog" data-category-link="Beauty">Beauty</a>
+            <a href="#catalog" data-category-link="Footwear">Footwear</a>
+            <span id="mobile-header-auth"><a href="/login/">Sign in</a></span>
+        </nav>
+    </aside>
+
+    <main class="marketplace-shell">
+        <section class="deal-hero">
+            <div class="deal-copy">
+                <p class="section-label">Today on Shoplane</p>
+                <h1>Simple shopping, clear prices, easy checkout.</h1>
+                <p>Use search, departments, and filters to find goods faster. Add items to cart or open a product for more details.</p>
+                <a class="primary-button magnetic" href="#catalog">Start shopping</a>
             </div>
-            <div class="hero-side">
-                <div class="promo-card">
-                    <span class="promo-label">Flash Sale Feel</span>
-                    <strong>Fast product scanning</strong>
-                    <p>Filter, sort, and move to order placement without extra clutter.</p>
-                </div>
+            <div class="deal-card">
+                <span>Featured deal</span>
+                <strong>Popular picks under $500</strong>
+                <p>Updated with electronics, fashion, beauty, and accessories.</p>
             </div>
         </section>
 
-        <section class="catalog-layout">
-            <aside class="toolbar">
-                <div class="toolbar-header">
-                    <p class="section-label">Categories</p>
-                    <h2>Filters</h2>
-                </div>
-                <div class="toolbar-group">
-                    <label for="sortSelect">Sort by</label>
-                    <select id="sortSelect">
-                        <option value="">Featured</option>
-                        <option value="price-low">Price: Low to High</option>
-                        <option value="price-high">Price: High to Low</option>
-                        <option value="latest">Newest arrivals</option>
-                    </select>
-                </div>
-                <div class="toolbar-group">
-                    <label for="ownerFilter">Seller</label>
-                    <input id="ownerFilter" type="text" placeholder="Filter by seller">
-                </div>
-                <div class="toolbar-actions">
-                    <button id="applyFiltersBtn" type="button">Apply</button>
-                    <button id="resetFiltersBtn" type="button" class="ghost-btn">Reset</button>
-                </div>
-                <div id="resultsMeta" class="results-meta">0 results</div>
-            </aside>
+        <section class="category-row" aria-label="Shop by category">
+            <a href="#catalog" data-category-link="Tech">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=360&q=70" alt="Headphones">
+                <span>Electronics</span>
+            </a>
+            <a href="#catalog" data-category-link="Apparel">
+                <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?auto=format&fit=crop&w=360&q=70" alt="Clothing rack">
+                <span>Fashion</span>
+            </a>
+            <a href="#catalog" data-category-link="Accessories">
+                <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=360&q=70" alt="Watch">
+                <span>Accessories</span>
+            </a>
+            <a href="#catalog" data-category-link="Beauty">
+                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=360&q=70" alt="Beauty products">
+                <span>Beauty</span>
+            </a>
+            <a href="#catalog" data-category-link="Footwear">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=360&q=70" alt="Sneaker">
+                <span>Footwear</span>
+            </a>
+        </section>
 
-            <section class="listing-panel">
-                <div class="listing-head">
-                    <div>
-                        <p class="section-label">Just for you</p>
-                        <h2>Available Products</h2>
+        <section class="catalog-section" id="catalog">
+            <div class="catalog-head">
+                <div>
+                    <p class="section-label">Products</p>
+                    <h2>Browse available goods</h2>
+                </div>
+                <div class="catalog-controls">
+                    <div id="resultsMeta" class="results-meta">Showing products</div>
+                    <label class="sort-control" for="sortSelect">
+                        Sort
+                        <select id="sortSelect">
+                            <option value="">Featured</option>
+                            <option value="price-low">Price Low-High</option>
+                            <option value="price-high">Price High-Low</option>
+                            <option value="newest">Newest</option>
+                            <option value="rating">Best Rated</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div id="activeFilters" class="active-filters" aria-live="polite"></div>
+            <div id="statusMessage" class="status-message" aria-live="polite"></div>
+
+            <div class="catalog-layout">
+                <aside class="filters-panel" aria-label="Product filters">
+                    <div class="filters-head">
+                        <strong>Filter by</strong>
+                        <button id="resetFiltersBtn" type="button" class="text-button">Reset</button>
+                    </div>
+
+                    <details class="filter-group" open>
+                        <summary>Category</summary>
+                        <label><input type="checkbox" name="category" value="Accessories"> Accessories</label>
+                        <label><input type="checkbox" name="category" value="Apparel"> Fashion</label>
+                        <label><input type="checkbox" name="category" value="Beauty"> Beauty</label>
+                        <label><input type="checkbox" name="category" value="Footwear"> Footwear</label>
+                        <label><input type="checkbox" name="category" value="Tech"> Electronics</label>
+                    </details>
+
+                    <details class="filter-group" open>
+                        <summary>Price</summary>
+                        <div class="range-row">
+                            <span>$0</span>
+                            <span id="priceRangeValue">$900</span>
+                        </div>
+                        <input id="priceRange" type="range" min="100" max="900" value="900" step="25">
+                    </details>
+
+                    <details class="filter-group" open>
+                        <summary>Color</summary>
+                        <div class="swatch-filter-group">
+                            <button class="swatch-filter" type="button" data-color="Black" style="--swatch:#0A0A0A" aria-label="Black"></button>
+                            <button class="swatch-filter" type="button" data-color="Ivory" style="--swatch:#F5F0E8" aria-label="Ivory"></button>
+                            <button class="swatch-filter" type="button" data-color="Gold" style="--swatch:#D4A853" aria-label="Gold"></button>
+                            <button class="swatch-filter" type="button" data-color="Sage" style="--swatch:#80866A" aria-label="Sage"></button>
+                        </div>
+                    </details>
+
+                    <details class="filter-group" open>
+                        <summary>Size</summary>
+                        <div class="size-filter-group">
+                            <button type="button" data-size="XS">XS</button>
+                            <button type="button" data-size="S">S</button>
+                            <button type="button" data-size="M">M</button>
+                            <button type="button" data-size="L">L</button>
+                            <button type="button" data-size="OS">OS</button>
+                        </div>
+                    </details>
+
+                    <details class="filter-group" open>
+                        <summary>Brand</summary>
+                        <label><input type="checkbox" name="brand" value="TimeCraft"> TimeCraft</label>
+                        <label><input type="checkbox" name="brand" value="SoundPro"> SoundPro</label>
+                        <label><input type="checkbox" name="brand" value="StepLite"> StepLite</label>
+                        <label><input type="checkbox" name="brand" value="GlowLab"> GlowLab</label>
+                        <label><input type="checkbox" name="brand" value="DailyWear"> DailyWear</label>
+                        <label><input type="checkbox" name="brand" value="CarryCo"> CarryCo</label>
+                        <label><input type="checkbox" name="brand" value="FotoMax"> FotoMax</label>
+                        <label><input type="checkbox" name="brand" value="StyleLine"> StyleLine</label>
+                    </details>
+
+                    <details class="filter-group" open>
+                        <summary>Rating</summary>
+                        <label><input type="radio" name="rating" value="4.8"> 4.8 and up</label>
+                        <label><input type="radio" name="rating" value="4.6"> 4.6 and up</label>
+                        <label><input type="radio" name="rating" value=""> All ratings</label>
+                    </details>
+                </aside>
+
+                <section class="listing-panel" aria-label="Product results">
+                    <div id="productsGrid" class="products-grid">
+                        <article class="product-card skeleton-card"></article>
+                        <article class="product-card skeleton-card"></article>
+                        <article class="product-card skeleton-card"></article>
+                        <article class="product-card skeleton-card"></article>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="product-detail-section" id="product-detail">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Home</a>
+                <span>/</span>
+                <a href="#catalog">Products</a>
+                <span>/</span>
+                <strong id="detailCrumb">Product details</strong>
+            </nav>
+
+            <div class="pdp-layout">
+                <div class="gallery-block">
+                    <div class="main-image-shell">
+                        <img id="mainProductImage" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80" alt="Selected product">
+                    </div>
+                    <div id="thumbnailRail" class="thumbnail-rail" aria-label="Product thumbnails"></div>
+                </div>
+
+                <div class="detail-block">
+                    <p id="detailBrand" class="brand-line">TimeCraft</p>
+                    <h2 id="detailTitle">Everyday Analog Watch</h2>
+                    <p class="sku-line">SKU <span id="detailSku">SL-AX104</span></p>
+                    <a id="detailRating" class="rating-link" href="#reviews">★★★★★ <span>4.9 (128 reviews)</span></a>
+                    <div class="price-stack">
+                        <strong id="detailPrice">$420</strong>
+                        <span id="detailOriginalPrice">$520</span>
+                        <span id="detailSavings">Save 19%</span>
+                    </div>
+                    <p id="detailDescription" class="detail-description">A practical product description appears here.</p>
+
+                    <div class="option-group">
+                        <div class="option-head"><span>Color</span><strong id="selectedColor">Obsidian</strong></div>
+                        <div id="detailColors" class="detail-swatches"></div>
+                    </div>
+                    <div class="option-group">
+                        <div class="option-head"><span>Size</span><strong id="selectedSize">OS</strong></div>
+                        <div id="detailSizes" class="detail-sizes"></div>
+                    </div>
+
+                    <div class="purchase-row">
+                        <div class="quantity-stepper" aria-label="Quantity selector">
+                            <button id="qtyMinus" type="button" aria-label="Decrease quantity">−</button>
+                            <span id="quantityValue">1</span>
+                            <button id="qtyPlus" type="button" aria-label="Increase quantity">+</button>
+                        </div>
+                        <span id="stockUrgency" class="stock-urgency">Only 3 left in stock</span>
+                    </div>
+
+                    <button id="addToCartBtn" class="primary-button full-width magnetic" type="button">Add to Cart</button>
+                    <button id="buyNowBtn" class="secondary-button full-width magnetic" type="button">Buy Now</button>
+                    <div class="detail-actions">
+                        <button id="detailWishlistBtn" type="button" class="text-action">♡ Wishlist</button>
+                        <button id="shareBtn" type="button" class="text-action">Share</button>
+                    </div>
+
+                    <div class="trust-row">
+                        <span>Free shipping over $500</span>
+                        <span>30-day returns</span>
+                        <span>Secure checkout</span>
+                    </div>
+
+                    <div class="detail-accordions">
+                        <details open>
+                            <summary>Description</summary>
+                            <p id="accordionDescription">Product details and specifications.</p>
+                        </details>
+                        <details>
+                            <summary>Shipping & Returns</summary>
+                            <p>Delivery estimates and return details are shown during checkout.</p>
+                        </details>
                     </div>
                 </div>
-                <div id="productsGrid" class="products-grid">
-                    <p class="empty-state">Load products to view the catalog.</p>
-                </div>
-            </section>
+            </div>
         </section>
+
+        <section class="checkout-section" id="checkout">
+            <div class="catalog-head">
+                <div>
+                    <p class="section-label">Checkout</p>
+                    <h2>Complete your order</h2>
+                </div>
+            </div>
+
+            <div class="checkout-layout">
+                <div class="checkout-form-panel">
+                    <div class="checkout-steps" aria-label="Checkout steps">
+                        <button type="button" class="active" data-checkout-step="1">Contact</button>
+                        <button type="button" data-checkout-step="2">Shipping</button>
+                        <button type="button" data-checkout-step="3">Payment</button>
+                    </div>
+
+                    <form class="checkout-form">
+                        <div class="checkout-step active" data-step-panel="1">
+                            <div class="field-grid">
+                                <label>Email <input type="email" placeholder="you@example.com" autocomplete="email"></label>
+                                <label>Name <input type="text" placeholder="Full name" autocomplete="name"></label>
+                                <label>Phone <input type="tel" placeholder="+1 555 012 9000" autocomplete="tel"></label>
+                            </div>
+                            <button class="primary-button magnetic" type="button" data-next-step="2">Continue</button>
+                        </div>
+
+                        <div class="checkout-step" data-step-panel="2">
+                            <div class="field-grid">
+                                <label>Address <input type="text" placeholder="Street address" autocomplete="address-line1"></label>
+                                <label>City <input type="text" placeholder="City" autocomplete="address-level2"></label>
+                                <label>Postal Code <input type="text" placeholder="Postal code" autocomplete="postal-code"></label>
+                            </div>
+                            <div class="shipping-methods">
+                                <label><input type="radio" name="shipping" value="0" checked> Standard <span>3-5 days · Free</span></label>
+                                <label><input type="radio" name="shipping" value="18"> Express <span>1-2 days · $18</span></label>
+                            </div>
+                            <button class="secondary-button magnetic" type="button" data-next-step="1">Back</button>
+                            <button class="primary-button magnetic" type="button" data-next-step="3">Continue</button>
+                        </div>
+
+                        <div class="checkout-step" data-step-panel="3">
+                            <div class="field-grid">
+                                <label>Card Number <input id="cardNumber" type="text" inputmode="numeric" maxlength="19" placeholder="4242 4242 4242 4242" autocomplete="cc-number"></label>
+                                <label>Expiry <input id="cardExpiry" type="text" inputmode="numeric" maxlength="5" placeholder="MM/YY" autocomplete="cc-exp"></label>
+                                <label>CVC <input type="text" inputmode="numeric" maxlength="4" placeholder="123" autocomplete="cc-csc"></label>
+                            </div>
+                            <button class="secondary-button magnetic" type="button" data-next-step="2">Back</button>
+                            <button class="primary-button magnetic" type="button">Place Order</button>
+                        </div>
+                    </form>
+                </div>
+
+                <aside class="checkout-summary">
+                    <strong>Order summary</strong>
+                    <div id="checkoutItems" class="checkout-items"></div>
+                    <div class="summary-line"><span>Subtotal</span><strong id="checkoutSubtotal">$0</strong></div>
+                    <div class="summary-line"><span>Shipping</span><strong id="checkoutShipping">$0</strong></div>
+                    <div class="summary-line summary-total"><span>Total</span><strong id="checkoutTotal">$0</strong></div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="reviews-section" id="reviews" aria-label="Reviews"></section>
     </main>
 
+    <div id="stickyAddBar" class="sticky-add-bar" aria-hidden="true">
+        <div>
+            <span id="stickyProductName">Everyday Analog Watch</span>
+            <strong id="stickyProductPrice">$420</strong>
+        </div>
+        <button id="stickyAddBtn" class="primary-button magnetic" type="button">Add to Cart</button>
+    </div>
+
+    <div id="drawerScrim" class="drawer-scrim"></div>
+    <aside id="cartDrawer" class="cart-drawer" aria-hidden="true" aria-label="Shopping cart">
+        <div class="cart-head">
+            <div>
+                <span class="section-label">Cart</span>
+                <h2>Your items</h2>
+            </div>
+            <button id="cartCloseBtn" class="menu-button" type="button" aria-label="Close cart">×</button>
+        </div>
+
+        <div class="free-ship-block">
+            <div class="range-row">
+                <span id="shippingProgressText">Add $500 for free shipping</span>
+                <span>$500</span>
+            </div>
+            <div class="progress-bar"><span id="shippingProgress"></span></div>
+        </div>
+
+        <div id="cartItems" class="cart-items"></div>
+
+        <div class="cart-summary">
+            <div class="summary-line"><span>Subtotal</span><strong id="cartSubtotal">$0</strong></div>
+            <div class="summary-line"><span>Estimated Shipping</span><strong id="cartShipping">$0</strong></div>
+            <label class="promo-field" for="promoCode">Promo code <input id="promoCode" type="text" placeholder="SAVE10"></label>
+            <p id="savingsCallout" class="savings-callout">Savings apply when available.</p>
+            <button id="checkoutBtn" class="primary-button full-width magnetic" type="button">Continue to Checkout</button>
+        </div>
+
+        <div class="recommendations">
+            <strong>You might also like</strong>
+            <div id="recommendationList" class="recommendation-list"></div>
+        </div>
+    </aside>
+
+    <script src="{% static 'accounts/auth-ui.js' %}?v=1"></script>
     <script src="{% static 'products/products-ui.js' %}"></script>
 </body>
 </html>

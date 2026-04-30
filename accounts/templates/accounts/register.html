@@ -4,68 +4,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account</title>
-    <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
+    <title>Shoplane | Create Account</title>
+    <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}?v=marketplace-2">
 </head>
 <body>
+    <div class="top-strip">
+        <span>Create an account once</span>
+        <span>Shop products faster</span>
+        <span>Customer, seller, and admin roles</span>
+    </div>
+
     <header class="site-header">
         <div class="header-main">
-            <a href="/" class="brand">shop<span>lane</span></a>
-            <div class="location-block">
-                <span class="header-label">Create account</span>
-                <strong>Choose the role you need</strong>
+            <a href="/" class="brand" aria-label="Shoplane home">Shop<span>lane</span></a>
+            <div class="search-shell">
+                <select aria-label="Search category">
+                    <option>All</option>
+                    <option>Electronics</option>
+                    <option>Fashion</option>
+                    <option>Beauty</option>
+                </select>
+                <input type="search" placeholder="Search products and brands" aria-label="Search products">
+                <a class="search-button" href="/products/ui/">Search</a>
             </div>
-            <div class="search-shell search-shell-static">
-                <input type="text" value="Customer, seller, or admin registration" aria-label="Register details" readonly>
-                <button type="button" disabled>Signup</button>
-            </div>
-            <nav class="header-links">
-                <a href="/products/ui/">Products</a>
+            <nav class="header-actions" aria-label="Account navigation">
+                <a href="/products/ui/">Shop</a>
                 <a href="/orders/ui/">Orders</a>
-                <a href="/login/">Sign in</a>
+                <span id="header-auth"><a href="/login/">Sign in</a></span>
             </nav>
-            <div class="account-block">
-                <span class="header-label">Next step</span>
-                <strong>Login after signup</strong>
-            </div>
         </div>
+        <nav class="department-nav" aria-label="Departments">
+            <a href="/products/ui/">All</a>
+            <a href="/products/ui/#catalog">Electronics</a>
+            <a href="/products/ui/#catalog">Fashion</a>
+            <a href="/products/ui/#catalog">Accessories</a>
+            <a href="/products/ui/#catalog">Beauty</a>
+        </nav>
     </header>
 
-    <main class="page-shell">
-        <section class="auth-layout">
-            <section class="auth-panel">
-                <div class="section-heading">
-                    <div>
-                        <p class="section-label">Create account</p>
-                        <h2>Set up your customer or seller profile</h2>
-                    </div>
-                </div>
-                <p class="lead">Choose a role, register once, then sign in to start browsing or managing orders.</p>
+    <main class="auth-shell">
+        <section class="auth-layout wide-form">
+            <section class="auth-card">
+                <p class="section-label">Create account</p>
+                <h1>Set up your profile</h1>
+                <p class="lead">Choose a role, create your account, then sign in to browse products or manage orders.</p>
 
                 <form id="registerForm" class="auth-form">
                     <div class="field-grid">
                         <div class="field">
                             <label for="registerUsername">Username</label>
-                            <input id="registerUsername" name="username" type="text" required>
+                            <input id="registerUsername" name="username" type="text" autocomplete="username" required>
                         </div>
 
                         <div class="field">
                             <label for="registerEmail">Email</label>
-                            <input id="registerEmail" name="email" type="email" required>
+                            <input id="registerEmail" name="email" type="email" autocomplete="email" required>
                         </div>
 
                         <div class="field">
                             <label for="registerRole">Role</label>
                             <select id="registerRole" name="role" required>
                                 <option value="customer">Customer</option>
-                                <option value="seller">Seller</option>
-                                <option value="admin">Admin</option>
+                                <option value="seller">Seller</option>      
                             </select>
                         </div>
 
                         <div class="field">
                             <label for="registerPassword">Password</label>
-                            <input id="registerPassword" name="password" type="password" required>
+                            <input id="registerPassword" name="password" type="password" autocomplete="new-password" required>
                         </div>
                     </div>
 
@@ -76,26 +82,26 @@
                 <p class="form-link">Already registered? <a href="/login/">Sign in</a></p>
             </section>
 
-            <aside class="auth-side-panel">
-                <p class="section-label">Roles</p>
-                <div class="info-list">
-                    <article class="info-row">
+            <aside class="help-panel">
+                <h2>Account roles</h2>
+                <div class="help-list">
+                    <article>
                         <strong>Customer</strong>
-                        <p>Browse inventory, add items to cart, and place orders.</p>
+                        <p>Browse products, add items to cart, and place orders.</p>
                     </article>
-                    <article class="info-row">
+                    <article>
                         <strong>Seller</strong>
-                        <p>Own products, review order items assigned to you, and update status.</p>
+                        <p>Own products and review order activity assigned to you.</p>
                     </article>
-                    <article class="info-row">
+                    <article>
                         <strong>Admin</strong>
-                        <p>Use broader platform permissions for management tasks.</p>
+                        <p>Use broader permissions for platform management.</p>
                     </article>
                 </div>
             </aside>
         </section>
     </main>
 
-    <script src="{% static 'accounts/auth-ui.js' %}"></script>
+    <script src="{% static 'accounts/auth-ui.js' %}?v=marketplace-2"></script>
 </body>
 </html>

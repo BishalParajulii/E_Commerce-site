@@ -1,3 +1,4 @@
+(function() {
 const loadDataBtn = document.getElementById("loadDataBtn");
 const refreshProductsBtn = document.getElementById("refreshProductsBtn");
 const clearCartBtn = document.getElementById("clearCartBtn");
@@ -455,3 +456,4 @@ if (getToken()) {
 } else {
     setMessage("Login to load products, place orders, and manage seller updates.", "error");
 }
+})();

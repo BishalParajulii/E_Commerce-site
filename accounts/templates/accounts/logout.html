@@ -4,49 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signed Out</title>
-    <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}">
+    <title>Shoplane | Signed Out</title>
+    <link rel="stylesheet" href="{% static 'accounts/auth-ui.css' %}?v=marketplace-2">
 </head>
 <body>
+    <div class="top-strip">
+        <span>Your browser session has been cleared</span>
+        <span>Sign in again to access protected inventory</span>
+    </div>
+
     <header class="site-header">
         <div class="header-main">
-            <a href="/" class="brand">shop<span>lane</span></a>
-            <div class="location-block">
-                <span class="header-label">Signed out</span>
-                <strong>Your browser token was removed</strong>
+            <a href="/" class="brand" aria-label="Shoplane home">Shop<span>lane</span></a>
+            <div class="search-shell">
+                <select aria-label="Search category">
+                    <option>All</option>
+                    <option>Electronics</option>
+                    <option>Fashion</option>
+                </select>
+                <input type="search" placeholder="Search products and brands" aria-label="Search products">
+                <a class="search-button" href="/products/ui/">Search</a>
             </div>
-            <div class="search-shell search-shell-static">
-                <input type="text" value="Sign in again to access protected pages" aria-label="Logout summary" readonly>
-                <button type="button" disabled>Logout</button>
-            </div>
-            <nav class="header-links">
-                <a href="/products/ui/">Products</a>
+            <nav class="header-actions" aria-label="Account navigation">
+                <a href="/products/ui/">Shop</a>
                 <a href="/orders/ui/">Orders</a>
-                <a href="/login/">Sign in</a>
+                <span id="header-auth"><a href="/login/">Sign in</a></span>
             </nav>
-            <div class="account-block">
-                <span class="header-label">Session</span>
-                <strong>Cleared</strong>
-            </div>
         </div>
+        <nav class="department-nav" aria-label="Departments">
+            <a href="/products/ui/">All</a>
+            <a href="/products/ui/#catalog">Electronics</a>
+            <a href="/products/ui/#catalog">Fashion</a>
+            <a href="/products/ui/#catalog">Beauty</a>
+        </nav>
     </header>
 
-    <main class="page-shell">
+    <main class="auth-shell">
         <section class="single-panel">
-            <div class="section-heading">
-                <div>
-                    <p class="section-label">Signed out</p>
-                    <h2>Your browser session has been cleared</h2>
-                </div>
-            </div>
+            <p class="section-label">Signed out</p>
+            <h1>Your session is clear</h1>
             <p class="lead">Products and orders will ask you to sign in again before protected actions can run.</p>
-            <div class="hero-actions">
+            <div class="button-row">
                 <a class="btn" href="/login/">Sign in again</a>
-                <a class="btn btn-secondary" href="/">Back to home</a>
+                <a class="btn btn-secondary" href="/">Back to store</a>
             </div>
         </section>
     </main>
 
-    <script src="{% static 'accounts/auth-ui.js' %}"></script>
+    <script src="{% static 'accounts/auth-ui.js' %}?v=marketplace-2"></script>
 </body>
 </html>

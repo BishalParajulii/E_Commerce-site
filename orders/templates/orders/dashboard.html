@@ -14,7 +14,7 @@
                 <a href="/login/">SAVE MORE ON APP</a>
                 <a href="/signup/">BECOME A SELLER</a>
                 <a href="/products/ui/">PRODUCTS</a>
-                <a href="/logout/">LOGOUT</a>
+                <span id="utility-auth"><a href="/logout/">LOGOUT</a></span>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
             <nav class="header-links">
                 <a href="/products/ui/">Products</a>
                 <a href="/orders/ui/">Orders</a>
-                <a href="/login/">Login</a>
+                <span id="header-auth"><a href="/login/">Login</a></span>
             </nav>
             <div class="account-block">
                 <span class="header-label">Account</span>
@@ -141,6 +141,7 @@
         </section>
     </main>
 
+    <script src="{% static 'accounts/auth-ui.js' %}?v=1"></script>
     <script src="{% static 'orders/orders-ui.js' %}"></script>
 </body>
 </html>

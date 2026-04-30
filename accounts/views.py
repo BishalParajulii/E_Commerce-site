@@ -12,7 +12,7 @@ class HomePageView(generics.GenericAPIView):
     permission_classes = [AllowAny]
 
     def get(self, request, *args, **kwargs):
-        return render(request, "accounts/home.html")
+        return render(request, "products/catalog.html")
 
 
 class RegistrationView(APIView):
